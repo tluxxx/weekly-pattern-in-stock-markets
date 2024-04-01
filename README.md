@@ -1,6 +1,15 @@
 # weekly-pattern-in-stock-markets
 exploiting weekly market patterns for stock trading
 
-In this repository we will compile a couple of jupyter-notebooks, containing code for strategies that try to identify weekly pattern in stock markets and to exploit it in trading. 
-# 1. 16-week-pattern strategy for German Stock market
-The strategy was generated and published by Thomas Gebert, a german Stock trader and publicist.(Thomas Gebert, Kurzfristige Strategien fuer Anleger, Boersenbuchverlag, 2019)  He proposes to exploit a 16-weeks cycle, he has observed in the DAX. Within this cycle a fixed pattern is defined to go LONG or SHORT or to stay FLAT. The notebook repeats his studies (covering 2000 to 2019) and extend the result up to february 2024. In a stratgy modification a slightlz different entry/exit methods is proposed. 
+In this repository we will compile a couple of jupyter-notebooks, generated in Google-Colab, containing code for strategies that try to identify weekly pattern in stock markets for usage in stock trading. 
+
+# 1. 16-week-cycle strategy for German Stock market
+The strategy was generated and first published by Thomas Gebert, a german stock trader and publicist (see: Thomas Gebert, Kurzfristige Strategien fuer Anleger, Boersenbuchverlag, 2019 (in German)).  He investigated into a potential 16-week-cycle, observeable in the closing-prices of the DAX-Index. Within this 16-week-cycle a fixed pattern per week is applied to go LONG, SHORT or to stay FLAT. The notebook repeats a sightly simplified version of his studies (analyzing the years 2000 to 2019, that were covered by the study). Next, the analyses was extended to end of february 2024. In a stratgy modification a small change in the entry/exit timing is proposed. Finally a sensitivity analyses is provided by shifting the identified pattern across the 16- week-cycle. 
+The results of the publication could be confirmed, however it turns out, that this strategy degrades significantly after 2019. Therefore the published strategy should not be used in the current market conditions. 
+
+# 2. Pattern optimisation within N-weeks-cycles using Genetic Algorithms
+## 2.1. 16-week-cycle 
+Based on the investigations in part 1. the first sub-section of the notebook takes a closer look to the 16-week-cycle. Instead of using the weekly pattern, proposed by Gebert in his original study, a optimized weekly pattern is identified using Genetic Algorithms. Each week is described by the position to be held during the week (from monday 9:00 to the following monday 9:00) as follows: 1:LONG, -1:SHORT or 0:FLAT. Now using the Genetic Algorithm an optimal sequence (=pattern) of 16 parameters ( consisting of -1, 0 and 1) is searched, to maximize the total return of this strategy. Several patterns are identified, resulting in even higher total returns than the one calculated in part 1. For Genetic Algorithm the module PyGAD was used with standard parameter setting. 
+Similar findings where obtained as in part 1. Results until 2019 are superior, after 2019 the systems clearly fails, even with optimized parameters.  
+## 2.2. N-weeks-cycle
+The research was extended to analyze the cycle interval from 4-weeks (= 1 month) to 52-weeks (= 1 year). In a kind of Brute-Force-approach we looped through all cycles between 4 and 52. In each loop, the optimal pattern was calculated that delivers the largest total return value. The results are finally displayed in a bar chart. It is clearly visible that the 16-week-cycle (and also the cycles of integer-multiples of 16) show superior performance. However, for larger cycle-lengths the potential of model-overfitting needs to be adressed. As in part 2.1. the total returns are superior until 2019, but degrade after 2019.     
